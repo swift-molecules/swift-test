@@ -56,7 +56,6 @@ extension Test.Snapshot.Diff {
                 // length-minus-one position). Algebraic-flip rephrase obscures
                 // the math; restructuring via `enumerated() + offset > 0` inverts
                 // the question (not-first vs not-last) which is a different intent.
-                // swiftlint:disable:next cardinal_count_minus_one_anti_pattern
                 if lineIndex < hunk.lines.count - 1 {
                     segments.append(.init("\n", style: .plain))
                 }

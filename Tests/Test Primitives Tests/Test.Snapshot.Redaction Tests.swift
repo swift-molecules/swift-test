@@ -23,7 +23,9 @@ extension `Test.Snapshot.Redaction`.Unit {
     }
 
     @Test func `redaction transforms non-string format`() {
-        let redaction = SUT.Snapshot.Redaction<[Byte]>(apply: { $0.map { Byte($0.underlying &+ 1) } })
+        let redaction = SUT.Snapshot.Redaction<[Byte]>(apply: {
+            $0.map { Byte($0.underlying &+ 1) }
+        })
         #expect(redaction.apply([0, 1, 2]) == [1, 2, 3])
     }
 
