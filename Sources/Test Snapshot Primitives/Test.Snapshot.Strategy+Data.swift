@@ -40,9 +40,11 @@ extension Test.Snapshot.Diffing where Format == [Byte] {
                 let summary: String
                 if old.count != new.count {
                     if let offset = firstDiffOffset {
-                        summary = "Binary data differs: expected \(old.count) bytes, got \(new.count) bytes (first difference at offset \(offset))"
+                        summary =
+                            "Binary data differs: expected \(old.count) bytes, got \(new.count) bytes (first difference at offset \(offset))"
                     } else {
-                        summary = "Binary data differs: expected \(old.count) bytes, got \(new.count) bytes"
+                        summary =
+                            "Binary data differs: expected \(old.count) bytes, got \(new.count) bytes"
                     }
                 } else if let offset = firstDiffOffset {
                     summary = "Binary data differs at offset \(offset) (both \(old.count) bytes)"

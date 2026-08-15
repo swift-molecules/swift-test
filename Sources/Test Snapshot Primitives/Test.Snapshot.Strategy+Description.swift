@@ -41,7 +41,9 @@ extension Test.Snapshot.Strategy where Format == String {
     /// conforming to `CustomStringConvertible`.
     ///
     /// - Returns: A strategy that uses the value's `description` property.
-    public static func customDescription<V: CustomStringConvertible>() -> Test.Snapshot.Strategy<V, String> {
+    public static func customDescription<V: CustomStringConvertible>()
+        -> Test.Snapshot.Strategy<V, String>
+    {
         Test.Snapshot.Strategy<String, String>.lines.pullback { $0.description }
     }
 
@@ -51,7 +53,9 @@ extension Test.Snapshot.Strategy where Format == String {
     /// provides more detail than `description`.
     ///
     /// - Returns: A strategy that uses the value's `debugDescription` property.
-    public static func debugDescription<V: CustomDebugStringConvertible>() -> Test.Snapshot.Strategy<V, String> {
+    public static func debugDescription<V: CustomDebugStringConvertible>()
+        -> Test.Snapshot.Strategy<V, String>
+    {
         Test.Snapshot.Strategy<String, String>.lines.pullback { $0.debugDescription }
     }
 }

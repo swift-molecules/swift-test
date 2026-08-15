@@ -36,8 +36,12 @@ extension Test.Snapshot.Diffing where Format == String {
             diff: { old, new in
                 guard old != new else { return nil }
 
-                let oldLines = old.split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
-                let newLines = new.split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
+                let oldLines = old.split(separator: "\n", omittingEmptySubsequences: false).map(
+                    String.init
+                )
+                let newLines = new.split(separator: "\n", omittingEmptySubsequences: false).map(
+                    String.init
+                )
 
                 let changes = Sequence.Difference.diff(oldLines, newLines)
                 let (removed, added) = changes.counts()
@@ -48,7 +52,8 @@ extension Test.Snapshot.Diffing where Format == String {
                 } else if added == .zero {
                     summary = "\(removed) line\(removed == .one ? "" : "s") removed"
                 } else {
-                    summary = "\(removed) line\(removed == .one ? "" : "s") removed, \(added) line\(added == .one ? "" : "s") added"
+                    summary =
+                        "\(removed) line\(removed == .one ? "" : "s") removed, \(added) line\(added == .one ? "" : "s") added"
                 }
 
                 let styledDiff = Test.Snapshot.Diff.styled(oldLines, newLines)
