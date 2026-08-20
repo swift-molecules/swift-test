@@ -1,29 +1,19 @@
-# Test Primitives
+# Test
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+[![CI](https://github.com/swift-primitives/swift-test/actions/workflows/ci.yml/badge.svg)](https://github.com/swift-primitives/swift-test/actions/workflows/ci.yml)
 
-Test primitives for Swift — exhaustive three-valued-logic helpers (`Bool?` and `Bool` as `CaseIterable`), snapshot-test support, and standard-library test integration shared across the institute's packages. Foundation-free.
-
-## Installation
-
-Add the dependency to your `Package.swift`:
+Runner-neutral test identity, outcomes, issues, attachments, explicit recording context, and statically composed scoped modifiers.
 
 ```swift
-dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-test-primitives.git", branch: "main")
-]
+import Test
+
+let recorder = Test.Recorder(issue: { issue in
+    print(issue)
+})
+let context = Test.Context(recorder: recorder)
 ```
 
-Add the product to your target:
-
-```swift
-.target(
-    name: "AppTests",
-    dependencies: [
-        .product(name: "Test Primitives", package: "swift-test-primitives")
-    ]
-)
-```
+This package does not define test declaration macros, discovery, registration, cases, plans, expectations, requirements, or a runner. Apple’s toolchain `Testing` module remains the framework authority.
 
 ## License
 

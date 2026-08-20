@@ -1,6 +1,4 @@
-# .github/metadata.yaml
-# Triaged by AI-assisted bulk pass (2026-04-29).
-description: "Test-run, benchmark-complexity/trend, and snapshot diff/redaction vocabulary types for Swift."
+description: "Runner-neutral test identity, outcomes, issues, attachments, recording context, and scoped modifiers."
 topics:
   - primitives
   - test
