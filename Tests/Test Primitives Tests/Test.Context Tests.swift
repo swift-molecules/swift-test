@@ -53,6 +53,19 @@ struct `Test Context` {
   }
 
   @Test
+  func `context scope preserves a noncopyable result`() async {
+    let context = NeutralTest.Context(recorder: .init { _ in })
+
+    let result = await context.withCurrent {
+      await Task.yield()
+      #expect(NeutralTest.Context.current != nil)
+      return NoncopyableResult(value: 42)
+    }
+
+    #expect(result.value == 42)
+  }
+
+  @Test
   func `modifier composition preserves order and a noncopyable result`() async {
     let trace = Trace()
     let context = NeutralTest.Context(recorder: .init { _ in })

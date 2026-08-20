@@ -30,28 +30,48 @@ extension Test {
 
 extension Test.Context {
   /// Runs an operation with this context as the current context.
-  public func withCurrent<R, E: Swift.Error>(
+  public func withCurrent<R: ~Copyable, E: Swift.Error>(
     operation: () throws(E) -> R
   ) throws(E) -> R {
+    var result: R?
     do {
-      return try Self.$current.withValue(self, operation: operation)
+      try Self.$current.withValue(self) {
+        result = try operation()
+      }
     } catch let error as E {
       throw error
     } catch {
       preconditionFailure("TaskLocal.withValue introduced an unexpected error type")
     }
+
+    switch consume result {
+    case .some(let value):
+      return value
+    case .none:
+      preconditionFailure("TaskLocal.withValue did not invoke its operation")
+    }
   }
 
   /// Runs an asynchronous operation with this context as the current context.
-  public func withCurrent<R, E: Swift.Error>(
+  public func withCurrent<R: ~Copyable, E: Swift.Error>(
     operation: () async throws(E) -> R
   ) async throws(E) -> R {
+    var result: R?
     do {
-      return try await Self.$current.withValue(self, operation: operation)
+      try await Self.$current.withValue(self) {
+        result = try await operation()
+      }
     } catch let error as E {
       throw error
     } catch {
       preconditionFailure("TaskLocal.withValue introduced an unexpected error type")
+    }
+
+    switch consume result {
+    case .some(let value):
+      return value
+    case .none:
+      preconditionFailure("TaskLocal.withValue did not invoke its operation")
     }
   }
 }
