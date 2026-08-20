@@ -30,19 +30,28 @@ extension Test {
 
 extension Test.Context {
   /// Runs an operation with this context as the current context.
-  // swiftlint:disable typed_throws_required
-  // Reason: TaskLocal.withValue currently exposes untyped throws upstream.
-  public func withCurrent<R>(
-    operation: () throws -> R
-  ) rethrows -> R {
-    try Self.$current.withValue(self, operation: operation)
+  public func withCurrent<R, E: Swift.Error>(
+    operation: () throws(E) -> R
+  ) throws(E) -> R {
+    do {
+      return try Self.$current.withValue(self, operation: operation)
+    } catch let error as E {
+      throw error
+    } catch {
+      preconditionFailure("TaskLocal.withValue introduced an unexpected error type")
+    }
   }
 
   /// Runs an asynchronous operation with this context as the current context.
-  public func withCurrent<R>(
-    operation: () async throws -> R
-  ) async rethrows -> R {
-    try await Self.$current.withValue(self, operation: operation)
+  public func withCurrent<R, E: Swift.Error>(
+    operation: () async throws(E) -> R
+  ) async throws(E) -> R {
+    do {
+      return try await Self.$current.withValue(self, operation: operation)
+    } catch let error as E {
+      throw error
+    } catch {
+      preconditionFailure("TaskLocal.withValue introduced an unexpected error type")
+    }
   }
-  // swiftlint:enable typed_throws_required
 }
