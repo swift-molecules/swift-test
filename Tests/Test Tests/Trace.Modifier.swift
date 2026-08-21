@@ -14,7 +14,7 @@ extension Trace {
 }
 
 extension Trace.Modifier {
-    func apply<R: ~Copyable & Sendable, E: Swift.Error>(
+    func apply<R: ~Copyable, E: Swift.Error>(
         in context: NeutralTest.Context,
         isolation: isolated (any Actor)?,
         operation: @isolated(any) () async throws(E) -> sending R

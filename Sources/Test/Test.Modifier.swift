@@ -8,16 +8,31 @@ extension Test {
     public protocol Modifier: Sendable {
         var inheritance: Test.Scope.Inheritance { get }
 
-        /// Applies this scope exactly once while preserving typed errors and move-only results.
-        func apply<R: ~Copyable & Sendable, E: Swift.Error>(
+        /// Applies this modifier exactly once while preserving typed errors and move-only results.
+        func apply<R: ~Copyable, E: Swift.Error>(
             in context: Test.Context,
             isolation: isolated (any Actor)?,
             operation: @isolated(any) () async throws(E) -> sending R
         ) async throws(E) -> sending R
+
+        /// Runs a test-body scope whose `Void` result permits lawful TaskLocal installation.
+        func scope<E: Swift.Error>(
+            in context: Test.Context,
+            isolation: isolated (any Actor)?,
+            operation: @isolated(any) () async throws(E) -> sending Void
+        ) async throws(E)
     }
 }
 
 extension Test.Modifier {
+    public func scope<E: Swift.Error>(
+        in context: Test.Context,
+        isolation: isolated (any Actor)?,
+        operation: @isolated(any) () async throws(E) -> sending Void
+    ) async throws(E) {
+        try await apply(in: context, isolation: isolation, operation: operation)
+    }
+
     public func followed<M: Test.Modifier>(
         by modifier: M
     ) -> Test.Composition<Self, M> {

@@ -54,6 +54,34 @@ struct `Test Tests` {
     @Suite
     struct Integration {
         @Test
+        func `modifier preserves a noncopyable result`() async {
+            struct Token: ~Copyable { let value: Int }
+            let trace = Trace()
+            let context = NeutralTest.Context(recorder: .init(issue: { _ in }))
+            let modifier = Trace.Modifier(inheritance: .local, trace: trace, name: "scope")
+
+            let token = await modifier.apply(in: context, isolation: nil) {
+                Token(value: 42)
+            }
+
+            #expect(token.value == 42)
+            #expect(trace.values.withLock { $0 } == ["scope-before", "scope-after"])
+        }
+
+        @Test
+        func `default test body scope invokes its operation exactly once`() async {
+            let trace = Trace()
+            let context = NeutralTest.Context(recorder: .init(issue: { _ in }))
+            let modifier = Trace.Modifier(inheritance: .local, trace: trace, name: "scope")
+
+            await modifier.scope(in: context, isolation: nil) {
+                trace.values.withLock { $0.append("operation") }
+            }
+
+            #expect(trace.values.withLock { $0 } == ["scope-before", "operation", "scope-after"])
+        }
+
+        @Test
         func `static modifiers compose in deterministic scope order`() async {
             let trace = Trace()
             let context = NeutralTest.Context(recorder: .init(issue: { _ in }))

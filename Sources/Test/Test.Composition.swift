@@ -23,7 +23,7 @@ extension Test.Composition {
         }
     }
 
-    public func apply<R: ~Copyable & Sendable, E: Swift.Error>(
+    public func apply<R: ~Copyable, E: Swift.Error>(
         in context: Test.Context,
         isolation: isolated (any Actor)?,
         operation: @isolated(any) () async throws(E) -> sending R
