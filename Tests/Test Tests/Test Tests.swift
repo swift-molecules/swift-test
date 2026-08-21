@@ -35,6 +35,7 @@ struct `Test Tests` {
 
             #expect(issues.withLock { $0.count } == 1)
             #expect(attachments.withLock { $0.first?.format } == "text/plain")
+            #expect(attachments.withLock { $0.first?.octets } == Array("- old\n+ new".utf8))
         }
     }
 

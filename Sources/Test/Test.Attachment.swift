@@ -25,3 +25,8 @@ extension Test {
         }
     }
 }
+
+extension Test.Attachment {
+    /// Projects the typed byte payload at an external API boundary that requires octets.
+    public var octets: [UInt8] { bytes.map(\.underlying) }
+}
