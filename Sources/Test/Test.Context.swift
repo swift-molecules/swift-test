@@ -48,9 +48,14 @@ extension Test.Context {
         return result
     }
 
-    public func with<R: ~Copyable, E: Swift.Error>(
-        operation: () async throws(E) -> R
-    ) async throws(E) -> R {
+    /// Runs an isolated async operation with this context inherited by child tasks.
+    ///
+    /// `R` may be move-only. It is `Sendable` because the current toolchain's TaskLocal
+    /// operation requires temporary result storage before returning the value as `sending`.
+    public func with<R: ~Copyable & Sendable, E: Swift.Error>(
+        isolation: isolated (any Actor)? = #isolation,
+        operation: @isolated(any) () async throws(E) -> sending R
+    ) async throws(E) -> sending R {
         var result: R?
         // swift-linter:disable:next do throws for typed catch
         // REASON: TaskLocal.withValue currently exposes untyped rethrows across this boundary.

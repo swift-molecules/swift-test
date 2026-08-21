@@ -8,7 +8,8 @@ extension Test {
     public protocol Modifier: Sendable {
         var inheritance: Test.Scope.Inheritance { get }
 
-        func apply<R: ~Copyable, E: Swift.Error>(
+        /// Applies this scope exactly once while preserving typed errors and move-only results.
+        func apply<R: ~Copyable & Sendable, E: Swift.Error>(
             in context: Test.Context,
             isolation: isolated (any Actor)?,
             operation: @isolated(any) () async throws(E) -> sending R
