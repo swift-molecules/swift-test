@@ -27,7 +27,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
         .package(
@@ -35,27 +35,27 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-async.git",
+            url: "https://github.com/swift-atoms/swift-async.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-sequence.git",
+            url: "https://github.com/swift-atoms/swift-sequence.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-sample.git",
+            url: "https://github.com/swift-atoms/swift-sample.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-numeric.git",
+            url: "https://github.com/swift-atoms/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-witness.git",
+            url: "https://github.com/swift-atoms/swift-witness.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-byte.git",
+            url: "https://github.com/swift-atoms/swift-byte.git",
             branch: "main"
         ),
     ],
@@ -70,10 +70,10 @@ let package = Package(
                 ),
                 .product(name: "Source", package: "swift-source"),
                 .product(name: "Sample", package: "swift-sample"),
-                .product(name: "Real", package: "swift-numeric"),
+                .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Async", package: "swift-async"),
                 .product(
-                    name: "Sequence Difference",
+                    name: "Sequence",
                     package: "swift-sequence"
                 ),
                 .product(name: "Witness", package: "swift-witness"),
