@@ -1,4 +1,4 @@
-import Test_Test_Support
+import Test
 import Testing
 
 private typealias SUT = Test.Test

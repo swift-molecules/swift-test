@@ -1,4 +1,4 @@
-public import Test
+import Test
 
 // MARK: - Source.Location Factory
 

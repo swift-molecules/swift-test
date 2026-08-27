@@ -1,4 +1,4 @@
-import Test_Test_Support
+import Test_Standard_Library_Integration
 import Testing
 
 @Suite

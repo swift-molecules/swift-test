@@ -12,21 +12,17 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        // MARK: - Sub-targets
-        .library(name: "Test Core", targets: ["Test Core"]),
-        .library(name: "Test Snapshot", targets: ["Test Snapshot"]),
+        .library(
+            name: "Test",
+            targets: ["Test"]
+        ),
         .library(
             name: "Test Standard Library Integration",
             targets: ["Test Standard Library Integration"]
         ),
-
-        // MARK: - Umbrella
-        .library(name: "Test", targets: ["Test"]),
-
-        // MARK: - Test Support
         .library(
-            name: "Test Test Support",
-            targets: ["Test Test Support"]
+            name: "Test Apple Foundation Integration",
+            targets: ["Test Apple Foundation Integration"]
         ),
     ],
     dependencies: [
@@ -55,10 +51,6 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-time.git",
-            branch: "main"
-        ),
-        .package(
             url: "https://github.com/swift-molecules/swift-witness.git",
             branch: "main"
         ),
@@ -68,24 +60,17 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Core
         .target(
-            name: "Test Core",
+            name: "Test",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
+                .product(
+                    name: "Tagged Standard Library Integration",
+                    package: "swift-tagged"
+                ),
                 .product(name: "Source", package: "swift-source"),
                 .product(name: "Sample", package: "swift-sample"),
                 .product(name: "Real", package: "swift-numeric"),
-                .product(name: "Time", package: "swift-time"),
-                .product(name: "Byte", package: "swift-byte"),
-            ]
-        ),
-
-        // MARK: - Snapshot
-        .target(
-            name: "Test Snapshot",
-            dependencies: [
-                "Test Core",
                 .product(name: "Async", package: "swift-async"),
                 .product(
                     name: "Sequence Difference",
@@ -99,45 +84,29 @@ let package = Package(
                 ),
             ]
         ),
-
-        // MARK: - Standard Library Integration
         .target(
             name: "Test Standard Library Integration",
-            dependencies: [
-                "Test Core"
-            ]
+            dependencies: ["Test"]
         ),
-
-        // MARK: - Umbrella
         .target(
-            name: "Test",
+            name: "Test Apple Foundation Integration",
             dependencies: [
-                "Test Core",
-                "Test Snapshot",
+                "Test",
                 "Test Standard Library Integration",
             ]
         ),
-
-        // MARK: - Test Support
-        .target(
-            name: "Test Test Support",
-            dependencies: [
-                "Test",
-                .product(
-                    name: "Tagged Test Support",
-                    package: "swift-tagged"
-                ),
-            ],
-            path: "Tests/Support"
-        ),
-
-        // MARK: - Tests
         .testTarget(
             name: "Test Tests",
             dependencies: [
                 "Test",
-                "Test Test Support",
                 .product(name: "Byte", package: "swift-byte"),
+            ]
+        ),
+        .testTarget(
+            name: "Test Standard Library Integration Tests",
+            dependencies: [
+                "Test",
+                "Test Standard Library Integration",
             ]
         ),
     ],
