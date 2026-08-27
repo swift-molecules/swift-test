@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-test-primitives",
+    name: "swift-test",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,119 +13,119 @@ let package = Package(
     ],
     products: [
         // MARK: - Sub-targets
-        .library(name: "Test Primitives Core", targets: ["Test Primitives Core"]),
-        .library(name: "Test Snapshot Primitives", targets: ["Test Snapshot Primitives"]),
+        .library(name: "Test Core", targets: ["Test Core"]),
+        .library(name: "Test Snapshot", targets: ["Test Snapshot"]),
         .library(
-            name: "Test Primitives Standard Library Integration",
-            targets: ["Test Primitives Standard Library Integration"]
+            name: "Test Standard Library Integration",
+            targets: ["Test Standard Library Integration"]
         ),
 
         // MARK: - Umbrella
-        .library(name: "Test Primitives", targets: ["Test Primitives"]),
+        .library(name: "Test", targets: ["Test"]),
 
         // MARK: - Test Support
         .library(
-            name: "Test Primitives Test Support",
-            targets: ["Test Primitives Test Support"]
+            name: "Test Test Support",
+            targets: ["Test Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-source-primitives.git",
+            url: "https://github.com/swift-molecules/swift-source.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-async-primitives.git",
+            url: "https://github.com/swift-molecules/swift-async.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-sequence-primitives.git",
+            url: "https://github.com/swift-molecules/swift-sequence.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-sample-primitives.git",
+            url: "https://github.com/swift-molecules/swift-sample.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-numeric-primitives.git",
+            url: "https://github.com/swift-molecules/swift-numeric.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-time-primitives.git",
+            url: "https://github.com/swift-molecules/swift-time.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-witness-primitives.git",
+            url: "https://github.com/swift-molecules/swift-witness.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-byte-primitives.git",
+            url: "https://github.com/swift-molecules/swift-byte.git",
             branch: "main"
         ),
     ],
     targets: [
         // MARK: - Core
         .target(
-            name: "Test Primitives Core",
+            name: "Test Core",
             dependencies: [
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Source Primitives", package: "swift-source-primitives"),
-                .product(name: "Sample Primitives", package: "swift-sample-primitives"),
-                .product(name: "Real Primitives", package: "swift-numeric-primitives"),
-                .product(name: "Time Primitives", package: "swift-time-primitives"),
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Source", package: "swift-source"),
+                .product(name: "Sample", package: "swift-sample"),
+                .product(name: "Real", package: "swift-numeric"),
+                .product(name: "Time", package: "swift-time"),
+                .product(name: "Byte", package: "swift-byte"),
             ]
         ),
 
         // MARK: - Snapshot
         .target(
-            name: "Test Snapshot Primitives",
+            name: "Test Snapshot",
             dependencies: [
-                "Test Primitives Core",
-                .product(name: "Async Primitives", package: "swift-async-primitives"),
+                "Test Core",
+                .product(name: "Async", package: "swift-async"),
                 .product(
-                    name: "Sequence Difference Primitives",
-                    package: "swift-sequence-primitives"
+                    name: "Sequence Difference",
+                    package: "swift-sequence"
                 ),
-                .product(name: "Witness Primitives", package: "swift-witness-primitives"),
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
+                .product(name: "Witness", package: "swift-witness"),
+                .product(name: "Byte", package: "swift-byte"),
                 .product(
-                    name: "Byte Primitives Standard Library Integration",
-                    package: "swift-byte-primitives"
+                    name: "Byte Standard Library Integration",
+                    package: "swift-byte"
                 ),
             ]
         ),
 
         // MARK: - Standard Library Integration
         .target(
-            name: "Test Primitives Standard Library Integration",
+            name: "Test Standard Library Integration",
             dependencies: [
-                "Test Primitives Core"
+                "Test Core"
             ]
         ),
 
         // MARK: - Umbrella
         .target(
-            name: "Test Primitives",
+            name: "Test",
             dependencies: [
-                "Test Primitives Core",
-                "Test Snapshot Primitives",
-                "Test Primitives Standard Library Integration",
+                "Test Core",
+                "Test Snapshot",
+                "Test Standard Library Integration",
             ]
         ),
 
         // MARK: - Test Support
         .target(
-            name: "Test Primitives Test Support",
+            name: "Test Test Support",
             dependencies: [
-                "Test Primitives",
+                "Test",
                 .product(
-                    name: "Tagged Primitives Test Support",
-                    package: "swift-tagged-primitives"
+                    name: "Tagged Test Support",
+                    package: "swift-tagged"
                 ),
             ],
             path: "Tests/Support"
@@ -133,11 +133,11 @@ let package = Package(
 
         // MARK: - Tests
         .testTarget(
-            name: "Test Primitives Tests",
+            name: "Test Tests",
             dependencies: [
-                "Test Primitives",
-                "Test Primitives Test Support",
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
+                "Test",
+                "Test Test Support",
+                .product(name: "Byte", package: "swift-byte"),
             ]
         ),
     ],

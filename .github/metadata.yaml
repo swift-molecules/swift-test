@@ -2,7 +2,7 @@
 # Triaged by AI-assisted bulk pass (2026-04-29).
 description: "Test-run, benchmark-complexity/trend, and snapshot diff/redaction vocabulary types for Swift."
 topics:
-  - primitives
+  - molecules
   - test
 homepage: "https://swift-institute.org"
 readme:
