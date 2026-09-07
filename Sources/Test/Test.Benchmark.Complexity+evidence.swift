@@ -5,7 +5,7 @@
 //  Pure-math evidence construction from measured data points.
 //
 
-import Real
+import Numeric
 import Sample
 
 extension Test.Benchmark.Complexity {

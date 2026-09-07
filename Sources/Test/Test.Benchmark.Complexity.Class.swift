@@ -5,7 +5,7 @@
 //  Named asymptotic complexity classes.
 //
 
-import Real
+import Numeric
 
 extension Test.Benchmark.Complexity {
     /// Named asymptotic complexity classes, ordered by growth rate.
