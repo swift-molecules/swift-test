@@ -5,7 +5,7 @@
 //  Event categories.
 //
 
-import Tagged_Standard_Library_Integration
+import Tagged
 
 extension Test.Event {
     /// Categories of events that occur during testing.
