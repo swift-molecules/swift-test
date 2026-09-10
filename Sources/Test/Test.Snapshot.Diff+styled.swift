@@ -1,21 +1,5 @@
-//
-//  Test.Snapshot.Diff+styled.swift
-//  swift-test
-//
-//  Styled diff output bridge to Test.Text.
-//
-
 extension Test.Snapshot.Diff {
-    /// Generates styled ``Test/Text`` from line differences.
-    ///
-    /// Uses ``Test/Text/Segment/Style/diffAdded``, ``Test/Text/Segment/Style/diffRemoved``,
-    /// and ``Test/Text/Segment/Style/diffContext`` styles.
-    ///
-    /// - Parameters:
-    ///   - old: Original lines.
-    ///   - new: New lines.
-    ///   - contextLines: Number of context lines around changes.
-    /// - Returns: Styled text representing the unified diff.
+
     public static func styled(
         _ old: [String],
         _ new: [String],
@@ -49,13 +33,6 @@ extension Test.Snapshot.Diff {
 
                 segments.append(.init("\(line.marker)\(line.element)", style: style))
 
-                // reason: Separator-not-last boundary on stdlib `[Hunk.Line]` iteration.
-                // No typed Cardinal surface available at this site; the assertion
-                // "lineIndex is not the last index" is naturally written as the
-                // strict inequality against the last valid index (which is the
-                // length-minus-one position). Algebraic-flip rephrase obscures
-                // the math; restructuring via `enumerated() + offset > 0` inverts
-                // the question (not-first vs not-last) which is a different intent.
                 if lineIndex < hunk.lines.count - 1 {
                     segments.append(.init("\n", style: .plain))
                 }

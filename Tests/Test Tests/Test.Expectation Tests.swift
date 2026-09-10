@@ -10,8 +10,6 @@ struct `Test.Expectation` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Expectation`.Unit {
     @Test
     func `passing expectation`() {
@@ -76,8 +74,6 @@ extension `Test.Expectation`.Unit {
         #expect(failure.comment == nil)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Expectation`.`Edge Case` {
     @Test

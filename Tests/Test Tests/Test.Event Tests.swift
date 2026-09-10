@@ -10,8 +10,6 @@ struct `Test.Event` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Event`.Unit {
     @Test
     func `init with kind only`() {
@@ -123,8 +121,6 @@ extension `Test.Event`.Unit {
         #expect(SUT.Event.Kind.testEnded != .testStarted)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Event`.`Edge Case` {
     @Test

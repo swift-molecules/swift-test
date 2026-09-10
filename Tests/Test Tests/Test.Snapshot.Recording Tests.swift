@@ -10,8 +10,6 @@ struct `Test.Snapshot.Recording` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Snapshot.Recording`.Unit {
     @Test
     func `allCases has four modes`() {
@@ -33,8 +31,6 @@ extension `Test.Snapshot.Recording`.Unit {
         }
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Recording`.`Edge Case` {
     @Test

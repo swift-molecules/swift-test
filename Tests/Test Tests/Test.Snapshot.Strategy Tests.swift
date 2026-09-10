@@ -4,15 +4,11 @@ import Testing
 
 private typealias SUT = Test.Test
 
-// Strategy<Value, Format> is generic — use parallel namespace [TEST-004]
-
 @Suite
 struct `Test.Snapshot.Strategy` {
     @Suite struct Unit {}
     @Suite struct `Edge Case` {}
 }
-
-// MARK: - Unit
 
 extension `Test.Snapshot.Strategy`.Unit {
     @Test
@@ -96,8 +92,6 @@ extension `Test.Snapshot.Strategy`.Unit {
         #expect(strategy.syncSnapshot!(42) == "42")
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Strategy`.`Edge Case` {
     @Test

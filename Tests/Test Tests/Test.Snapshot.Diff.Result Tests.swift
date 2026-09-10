@@ -10,8 +10,6 @@ struct `Test.Snapshot.Diff.Result` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Snapshot.Diff.Result`.Unit {
     @Test
     func `init with summary only`() {
@@ -40,8 +38,6 @@ extension `Test.Snapshot.Diff.Result`.Unit {
         #expect(result.description == "test summary")
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Diff.Result`.`Edge Case` {
     @Test

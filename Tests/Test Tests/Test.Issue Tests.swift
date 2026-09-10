@@ -10,8 +10,6 @@ struct `Test.Issue` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Issue`.Unit {
     @Test
     func `init with kind only`() {
@@ -83,8 +81,6 @@ extension `Test.Issue`.Unit {
         #expect(issue.kind == .system("internal error"))
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Issue`.`Edge Case` {
     @Test

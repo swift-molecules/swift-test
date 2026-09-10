@@ -10,8 +10,6 @@ struct `Test.Snapshot.Diff` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Snapshot.Diff`.Unit {
     @Test
     func `diff identical sequences returns all both`() {
@@ -90,8 +88,6 @@ extension `Test.Snapshot.Diff`.Unit {
         #expect(styles.contains(.diffRemoved) || styles.contains(.diffAdded))
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Diff`.`Edge Case` {
     @Test

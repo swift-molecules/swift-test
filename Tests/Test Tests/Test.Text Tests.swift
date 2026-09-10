@@ -10,8 +10,6 @@ struct `Test.Text` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Text`.Unit {
     @Test
     func `init from string creates single plain segment`() {
@@ -72,8 +70,6 @@ extension `Test.Text`.Unit {
         #expect(SUT.Text.Segment.Style.allCases.count == 13)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Text`.`Edge Case` {
     @Test

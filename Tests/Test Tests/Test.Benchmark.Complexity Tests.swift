@@ -1,10 +1,3 @@
-//
-//  SUT.Benchmark.Complexity Tests.swift
-//  swift-test
-//
-//  Unit tests for complexity analysis primitives.
-//
-
 import Test
 import Testing
 
@@ -17,8 +10,6 @@ struct `Test Benchmark Complexity Tests` {
     @Suite struct Evidence {}
     @Suite struct `Edge Case` {}
 }
-
-// MARK: - Class
 
 extension `Test Benchmark Complexity Tests`.Class {
 
@@ -66,13 +57,11 @@ extension `Test Benchmark Complexity Tests`.Class {
     }
 }
 
-// MARK: - Evidence (synthetic data)
-
 extension `Test Benchmark Complexity Tests`.Evidence {
 
     @Test
     func `linear data produces exponent near 1`() {
-        // T(n) = 0.001 * n  (1ms per 1000 elements)
+
         let sizes = [100, 1_000, 10_000, 100_000]
         let points: [(size: Int, metric: Duration)] = sizes.map { n in
             (size: n, metric: Duration.milliseconds(n / 10))
@@ -86,8 +75,7 @@ extension `Test Benchmark Complexity Tests`.Evidence {
         #expect(abs(evidence.exponent.value - 1.0) < 0.15)
         #expect(evidence.exponent.fit.rSquared > 0.99)
         #expect(evidence.candidates.first?.complexity == .linear)
-        // Mann-Kendall needs > 10 points for significance; with 4 points
-        // the z-score may not reach the ±1.96 threshold.
+
         #expect(
             evidence.monotonicity.interpretation == .increasing
                 || evidence.monotonicity.interpretation == .none
@@ -96,7 +84,7 @@ extension `Test Benchmark Complexity Tests`.Evidence {
 
     @Test
     func `quadratic data produces exponent near 2`() {
-        // T(n) = c * n²
+
         let sizes = [100, 1_000, 10_000]
         let points: [(size: Int, metric: Duration)] = sizes.map { n in
             let seconds = Double(n) * Double(n) * 1e-9
@@ -182,12 +170,10 @@ extension `Test Benchmark Complexity Tests`.Evidence {
             classes: [.logarithmic, .linearithmic]
         )
 
-        // Logarithmic effective exponent is small and positive (≈ 0.1-0.2).
         let logarithmic = evidence.candidates.first { $0.complexity == .logarithmic }
         #expect(logarithmic!.effectiveExponent > 0)
         #expect(logarithmic!.effectiveExponent < 0.5)
 
-        // Linearithmic effective exponent is slightly above 1.0.
         let linearithmic = evidence.candidates.first { $0.complexity == .linearithmic }
         #expect(linearithmic!.effectiveExponent > 1.0)
         #expect(linearithmic!.effectiveExponent < 1.3)
@@ -229,8 +215,6 @@ extension `Test Benchmark Complexity Tests`.Evidence {
     }
 }
 
-// MARK: - Edge Case
-
 extension `Test Benchmark Complexity Tests`.`Edge Case` {
 
     @Test
@@ -263,7 +247,6 @@ extension `Test Benchmark Complexity Tests`.`Edge Case` {
             classes: [.linear]
         )
 
-        // Zero-duration point should be filtered, leaving 3 valid points.
         #expect(evidence.points.count == 3)
     }
 
@@ -280,7 +263,6 @@ extension `Test Benchmark Complexity Tests`.`Edge Case` {
             classes: [.linear]
         )
 
-        // Points should be sorted by size in the output.
         #expect(evidence.points[0].size < evidence.points[1].size)
         #expect(evidence.points[1].size < evidence.points[2].size)
     }

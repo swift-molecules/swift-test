@@ -10,8 +10,6 @@ struct `Test.Snapshot.Diffing` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Snapshot.Diffing`.Unit {
     @Test
     func `text diffing round-trips through bytes`() {
@@ -85,8 +83,6 @@ extension `Test.Snapshot.Diffing`.Unit {
         #expect(result != nil)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Diffing`.`Edge Case` {
     @Test

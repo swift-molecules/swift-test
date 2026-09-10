@@ -1,14 +1,7 @@
-//
-//  Test.Benchmark.Error.swift
-//  swift-test
-//
-//  Errors thrown during performance testing operations.
-//
-
 extension Test.Benchmark {
-    /// Errors thrown during performance testing operations.
+
     public enum Error: Swift.Error, Sendable, CustomStringConvertible {
-        /// Performance threshold was exceeded.
+
         case thresholdExceeded(
             test: Swift.String,
             metric: Metric,
@@ -16,7 +9,6 @@ extension Test.Benchmark {
             actual: Duration
         )
 
-        /// Performance regression exceeded the configured baseline tolerance.
         case regressionDetected(
             test: Swift.String,
             metric: Metric,
@@ -29,7 +21,7 @@ extension Test.Benchmark {
 }
 
 extension Test.Benchmark.Error {
-    /// A human-readable failure message, one rendering per error case.
+
     public var description: Swift.String {
         switch self {
         case .thresholdExceeded(let test, let metric, let expected, let actual):

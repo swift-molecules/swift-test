@@ -1,46 +1,27 @@
-//
-//  Test.Issue.Kind.swift
-//  swift-test
-//
-//  Issue categories.
-//
-
 extension Test.Issue {
-    /// Categories of issues that can occur during testing.
-    ///
-    /// Each kind represents a different type of problem that can be
-    /// encountered during test execution.
+
     public enum Kind: Sendable, Hashable, Codable {
-        /// An unconditional failure recorded via `Issue.record()`.
+
         case unconditional(Test.Text)
 
-        /// An expectation failed.
         case expectationFailed(Test.Expectation.ID)
 
-        /// A confirmation count didn't match the expected count.
         case confirmationMiscounted(actual: Int, expected: Int)
 
-        /// An error was thrown during test execution.
         case errorCaught(type: String, description: Test.Text)
 
-        /// The test exceeded its time limit.
         case timeLimitExceeded(limit: Duration)
 
-        /// A known issue was declared but not actually recorded.
         case knownIssueNotRecorded
 
-        /// The testing API was misused.
         case apiMisused(Test.Text)
 
-        /// A system-level issue occurred.
         case system(Test.Text)
     }
 }
 
-// MARK: - CustomStringConvertible
-
 extension Test.Issue.Kind: CustomStringConvertible {
-    /// A human-readable summary of the issue, one message per variant.
+
     public var description: String {
         switch self {
         case .unconditional(let message):

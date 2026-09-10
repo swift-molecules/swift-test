@@ -10,8 +10,6 @@ struct `Test.Trait` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Trait`.Unit {
     @Test
     func `timeLimit factory`() {
@@ -91,8 +89,6 @@ extension `Test.Trait`.Unit {
         #expect(trait.sourceLocation == loc)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Trait`.`Edge Case` {
     @Test

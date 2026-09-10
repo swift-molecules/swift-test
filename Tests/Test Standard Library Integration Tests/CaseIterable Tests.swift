@@ -6,8 +6,6 @@ struct `CaseIterable Extensions` {
     @Suite struct Unit {}
 }
 
-// MARK: - Bool
-
 extension `CaseIterable Extensions`.Unit {
     @Test
     func `Bool allCases has two elements`() {
@@ -46,8 +44,6 @@ extension `CaseIterable Extensions`.Unit {
         #expect(cases.count == 64)
     }
 }
-
-// MARK: - Bool?
 
 extension `CaseIterable Extensions` {
     @Suite

@@ -10,8 +10,6 @@ struct `Test.Case` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Case`.Unit {
     @Test
     func `init stores id and arguments`() {
@@ -26,8 +24,6 @@ extension `Test.Case`.Unit {
         #expect(testCase.description.contains("42"))
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Case`.`Edge Case` {
     @Test

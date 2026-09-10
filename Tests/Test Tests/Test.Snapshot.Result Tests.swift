@@ -9,8 +9,6 @@ struct `Test.Snapshot.Result` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Snapshot.Result`.Unit {
     @Test
     func `matched is passing`() {
@@ -48,8 +46,6 @@ extension `Test.Snapshot.Result`.Unit {
         #expect(!result.isPassing)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Snapshot.Result`.`Edge Case` {
     @Test

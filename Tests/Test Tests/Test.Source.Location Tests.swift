@@ -8,8 +8,6 @@ struct `Source.Location` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Source.Location`.Unit {
     @Test
     func `init stores all properties`() {
@@ -52,8 +50,6 @@ extension `Source.Location`.Unit {
         #expect(a != b)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Source.Location`.`Edge Case` {
     @Test

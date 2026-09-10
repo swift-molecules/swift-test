@@ -10,8 +10,6 @@ struct `Test.ID` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.ID`.Unit {
     @Test
     func `init with suite stores all properties`() {
@@ -53,8 +51,6 @@ extension `Test.ID`.Unit {
         #expect(id.fullyQualifiedName.contains("Suite"))
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.ID`.`Edge Case` {
     @Test

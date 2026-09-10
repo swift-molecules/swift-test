@@ -1,19 +1,7 @@
-//
-//  Test.Snapshot.Strategy+Data.swift
-//  swift-test
-//
-//  Built-in binary data strategy.
-//
-
 public import Byte
 
-// MARK: - Data Diffing
-
 extension Test.Snapshot.Diffing where Format == [Byte] {
-    /// Binary data comparison diffing.
-    ///
-    /// Compares byte arrays, reporting size differences and the
-    /// offset of the first differing byte.
+
     public static var data: Self {
         Test.Snapshot.Diffing(
             toBytes: { $0 },
@@ -21,7 +9,6 @@ extension Test.Snapshot.Diffing where Format == [Byte] {
             diff: { old, new in
                 guard old != new else { return nil }
 
-                // Find first difference
                 var firstDiffOffset: Int?
                 let minLength = min(old.count, new.count)
 
@@ -32,7 +19,6 @@ extension Test.Snapshot.Diffing where Format == [Byte] {
                     }
                 }
 
-                // If no diff found in common prefix, diff is at the end
                 if firstDiffOffset == nil && old.count != new.count {
                     firstDiffOffset = minLength
                 }
@@ -58,24 +44,8 @@ extension Test.Snapshot.Diffing where Format == [Byte] {
     }
 }
 
-// MARK: - Data Strategy
-
 extension Test.Snapshot.Strategy where Value == [Byte], Format == [Byte] {
-    /// Binary data comparison strategy.
-    ///
-    /// Compares raw byte arrays. Best for binary files, images,
-    /// or any non-text data.
-    ///
-    /// File extension: `.bin`
-    ///
-    /// ## Diff Output
-    ///
-    /// Reports:
-    /// - Size differences (expected vs actual byte count)
-    /// - Offset of first differing byte
-    ///
-    /// Note: Does not produce a visual diff since binary data
-    /// is not human-readable.
+
     public static var data: Self {
         Test.Snapshot.Strategy(pathExtension: "bin", diffing: .data)
     }

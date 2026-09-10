@@ -10,8 +10,6 @@ struct `Test.Expression` {
     @Suite struct `Edge Case` {}
 }
 
-// MARK: - Unit
-
 extension `Test.Expression`.Unit {
     @Test
     func `init stores all properties`() {
@@ -89,8 +87,6 @@ extension `Test.Expression`.Unit {
         #expect(!value.isNil)
     }
 }
-
-// MARK: - EdgeCase
 
 extension `Test.Expression`.`Edge Case` {
     @Test
