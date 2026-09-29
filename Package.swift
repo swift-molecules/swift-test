@@ -58,6 +58,7 @@ let package = Package(
             url: "https://github.com/swift-atoms/swift-byte.git",
             branch: "main"
         ),
+        .package(url: "https://github.com/swift-atoms/swift-carrier.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -82,6 +83,7 @@ let package = Package(
                     name: "Byte",
                     package: "swift-byte"
                 ),
+                .product(name: "Carrier", package: "swift-carrier"),
             ]
         ),
         .target(
