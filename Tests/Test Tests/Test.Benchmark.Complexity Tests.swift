@@ -1,7 +1,7 @@
 import Test
 import Testing
 
-private typealias SUT = Test.Test
+private typealias SUT = Test::Test
 
 @Suite
 struct `Test Benchmark Complexity Tests` {

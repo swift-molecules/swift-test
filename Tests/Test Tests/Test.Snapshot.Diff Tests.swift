@@ -1,7 +1,7 @@
 import Test
 import Testing
 
-private typealias SUT = Test.Test
+private typealias SUT = Test::Test
 private typealias Diff = Sequence_Difference.Sequence.Difference
 
 @Suite
