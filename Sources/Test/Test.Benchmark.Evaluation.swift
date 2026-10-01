@@ -1,3 +1,4 @@
+public import Sample
 extension Test.Benchmark {
 
     public struct Evaluation: Sendable, Hashable, Codable {

@@ -1,4 +1,4 @@
-import Sample
+public import Sample
 
 extension Test.Benchmark.Trend {
 

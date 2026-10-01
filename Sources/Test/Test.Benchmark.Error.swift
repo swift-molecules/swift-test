@@ -27,8 +27,8 @@ extension Test.Benchmark.Error {
         case .thresholdExceeded(let test, let metric, let expected, let actual):
             return """
                 Performance threshold exceeded in '\(test)':
-                Expected \(metric): < \(expected.formatted())
-                Actual \(metric): \(actual.formatted())
+                Expected \(metric): < \(expected)
+                Actual \(metric): \(actual)
                 """
 
         case .regressionDetected(
@@ -41,8 +41,8 @@ extension Test.Benchmark.Error {
         ):
             return """
                 Performance regression detected in '\(test)':
-                Baseline \(metric): \(baseline.formatted())
-                Current \(metric): \(current.formatted())
+                Baseline \(metric): \(baseline)
+                Current \(metric): \(current)
                 Regression: \(regression)x tolerance (\(tolerance))
                 """
         }
