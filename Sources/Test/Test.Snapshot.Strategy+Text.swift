@@ -1,12 +1,12 @@
 public import Byte
-public import Byte
+import Sequence
 
 extension Test.Snapshot.Diffing where Format == String {
 
     public static var text: Self {
         Test.Snapshot.Diffing(
-            toBytes: { $0.utf8.map(Byte.init) },
-            fromBytes: { String(decoding: $0.underlying, as: UTF8.self) },
+            toBytes: { $0.utf8.map(Byte.init(bitPattern:)) },
+            fromBytes: { String(decoding: $0.map(\.bitPattern), as: UTF8.self) },
             diff: { old, new in
                 guard old != new else { return nil }
                 return Test.Snapshot.Diff.Result(summary: "Text content differs")
@@ -16,8 +16,8 @@ extension Test.Snapshot.Diffing where Format == String {
 
     public static var lines: Self {
         Test.Snapshot.Diffing(
-            toBytes: { $0.utf8.map(Byte.init) },
-            fromBytes: { String(decoding: $0.underlying, as: UTF8.self) },
+            toBytes: { $0.utf8.map(Byte.init(bitPattern:)) },
+            fromBytes: { String(decoding: $0.map(\.bitPattern), as: UTF8.self) },
             diff: { old, new in
                 guard old != new else { return nil }
 

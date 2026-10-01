@@ -1,3 +1,5 @@
+import Sample
+import Tagged
 import Test
 import Testing
 

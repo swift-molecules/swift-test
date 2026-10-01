@@ -59,6 +59,7 @@ let package = Package(
             branch: "main"
         ),
         .package(url: "https://github.com/swift-atoms/swift-carrier.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-text.git", branch: "main", traits: ["Byte"]),
     ],
     targets: [
         .target(
@@ -70,6 +71,7 @@ let package = Package(
                     package: "swift-tagged"
                 ),
                 .product(name: "Source", package: "swift-source"),
+                .product(name: "Source Standard Library Integration", package: "swift-source"),
                 .product(name: "Sample", package: "swift-sample"),
                 .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Async", package: "swift-async"),
@@ -102,6 +104,12 @@ let package = Package(
             dependencies: [
                 "Test",
                 .product(name: "Byte", package: "swift-byte"),
+                .product(name: "Async", package: "swift-async"),
+                .product(name: "Sequence", package: "swift-sequence"),
+                .product(name: "Source", package: "swift-source"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Text", package: "swift-text"),
+                .product(name: "Sample", package: "swift-sample"),
             ]
         ),
         .testTarget(

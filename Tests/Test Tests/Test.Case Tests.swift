@@ -1,3 +1,4 @@
+import Tagged
 import Foundation
 import Test
 import Testing

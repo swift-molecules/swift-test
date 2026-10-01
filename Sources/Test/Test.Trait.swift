@@ -1,3 +1,4 @@
+public import Source_Standard_Library_Integration
 public import Sample
 public import Source
 extension Test {

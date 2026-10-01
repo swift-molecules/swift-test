@@ -12,15 +12,15 @@ struct `Test.Attachment` {
 extension `Test.Attachment`.Unit {
 
     @Test func `init from bytes stores name and bytes`() {
-        let attachment = SUT.Attachment(name: "diff.bin", bytes: [0x48, 0x49] as [Byte])
+        let attachment = SUT.Attachment(name: "diff.bin", bytes: ([0x48, 0x49] as [UInt8]).map(Byte.init(bitPattern:)))
         #expect(attachment.name == "diff.bin")
-        #expect(attachment.bytes == [0x48, 0x49])
+        #expect(attachment.bytes == ([0x48, 0x49] as [UInt8]).map(Byte.init(bitPattern:)))
     }
 
     @Test func `init from bytes stores content type`() {
         let attachment = SUT.Attachment(
             name: "img.png",
-            bytes: [0x89, 0x50] as [Byte],
+            bytes: ([0x89, 0x50] as [UInt8]).map(Byte.init(bitPattern:)),
             contentType: "image/png"
         )
         #expect(attachment.contentType == "image/png")
@@ -33,7 +33,7 @@ extension `Test.Attachment`.Unit {
 
     @Test func `init from string encodes as UTF-8`() {
         let attachment = SUT.Attachment(name: "msg.txt", string: "hello")
-        #expect(attachment.bytes == "hello".utf8.map(Byte.init))
+        #expect(attachment.bytes == "hello".utf8.map(Byte.init(bitPattern:)))
     }
 
     @Test func `init from string sets text content type`() {

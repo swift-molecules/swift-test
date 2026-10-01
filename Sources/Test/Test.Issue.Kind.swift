@@ -1,3 +1,4 @@
+public import Tagged
 extension Test.Issue {
 
     public enum Kind: Sendable, Hashable, Codable {

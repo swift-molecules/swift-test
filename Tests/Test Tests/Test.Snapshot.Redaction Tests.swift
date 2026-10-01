@@ -1,3 +1,5 @@
+public import Async_Primitive
+import Async
 import Byte
 import Test
 import Testing
@@ -24,9 +26,9 @@ extension `Test.Snapshot.Redaction`.Unit {
 
     @Test func `redaction transforms non-string format`() {
         let redaction = SUT.Snapshot.Redaction<[Byte]>(apply: {
-            $0.map { Byte($0.underlying &+ 1) }
+            $0.map { Byte(bitPattern: $0.bitPattern &+ 1) }
         })
-        #expect(redaction.apply([0, 1, 2]) == [1, 2, 3])
+        #expect(redaction.apply(([0, 1, 2] as [UInt8]).map(Byte.init(bitPattern:))) == ([1, 2, 3] as [UInt8]).map(Byte.init(bitPattern:)))
     }
 
     @Test func `strategy redacting with empty list returns self`() {

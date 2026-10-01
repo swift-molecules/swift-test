@@ -1,8 +1,9 @@
+import Sequence
 import Test
 import Testing
 
 private typealias SUT = Test::Test
-private typealias Diff = Sequence_Difference.Sequence.Difference
+private typealias Diff = Sequence.Difference
 
 @Suite
 struct `Test.Snapshot.Diff` {

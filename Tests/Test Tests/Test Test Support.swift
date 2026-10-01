@@ -1,4 +1,6 @@
-import Test
+import Source
+public import Source
+public import Test
 
 extension Source.Location {
 
