@@ -1,3 +1,4 @@
+public import Tagged
 extension Test {
 
     public struct Case: Sendable, Hashable, Codable {

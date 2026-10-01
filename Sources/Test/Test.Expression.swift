@@ -1,3 +1,5 @@
+public import Tagged
+public import Source
 extension Test {
 
     public struct Expression: Sendable, Hashable, Codable {

@@ -1,3 +1,4 @@
+public import Source
 extension Test {
 
     public struct ID: Sendable, Hashable, Codable {

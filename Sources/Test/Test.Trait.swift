@@ -1,3 +1,4 @@
+public import Source
 extension Test {
 
     public struct Trait: Sendable, Hashable, Codable {
