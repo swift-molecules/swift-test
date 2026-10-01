@@ -1,3 +1,4 @@
+public import Async
 public import Witness
 
 extension Test.Snapshot {

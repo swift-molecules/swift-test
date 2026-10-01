@@ -1,3 +1,4 @@
+public import Async
 extension Test.Snapshot.Strategy {
 
     public func redacting(
