@@ -1,3 +1,4 @@
+public import Sample
 public import Source
 extension Test {
 

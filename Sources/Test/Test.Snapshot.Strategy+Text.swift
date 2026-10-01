@@ -1,5 +1,5 @@
-import Byte
-import Byte
+public import Byte
+public import Byte
 
 extension Test.Snapshot.Diffing where Format == String {
 

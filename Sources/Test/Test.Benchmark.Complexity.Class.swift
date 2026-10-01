@@ -1,4 +1,4 @@
-import Numeric
+public import Numeric
 
 extension Test.Benchmark.Complexity {
 
