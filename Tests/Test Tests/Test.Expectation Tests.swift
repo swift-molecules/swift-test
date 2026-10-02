@@ -106,3 +106,41 @@ extension `Test.Expectation`.`Edge Case` {
         #expect(decoded == original)
     }
 }
+
+extension `Test.Expectation`.`Edge Case` {
+    static func encoded(isPassing: Bool) throws -> [String: Any] {
+        let expectation = SUT.Expectation(
+            id: 7,
+            expression: SUT.Expression(id: 1, sourceCode: "x == 42", sourceLocation: .stub()),
+            isPassing: isPassing,
+            failure: isPassing ? nil : SUT.Expectation.Failure(message: "Expected 42, got 0")
+        )
+        return try #require(
+            try JSONSerialization.jsonObject(with: try JSONEncoder().encode(expectation)) as? [String: Any]
+        )
+    }
+
+    @Test(arguments: [true, false])
+    func `a consistent expectation survives a JSON round trip`(_ isPassing: Bool) throws {
+        let data = try JSONSerialization.data(withJSONObject: try Self.encoded(isPassing: isPassing))
+        let decoded = try JSONDecoder().decode(SUT.Expectation.self, from: data)
+        #expect(decoded.isPassing == isPassing)
+        #expect((decoded.failure == nil) == isPassing)
+    }
+
+    @Test
+    func `decoding a passing expectation that carries a failure throws`() throws {
+        var object = try Self.encoded(isPassing: false)
+        object["isPassing"] = true
+        let data = try JSONSerialization.data(withJSONObject: object)
+        #expect(throws: DecodingError.self) { try JSONDecoder().decode(SUT.Expectation.self, from: data) }
+    }
+
+    @Test
+    func `decoding a failing expectation without a failure throws`() throws {
+        var object = try Self.encoded(isPassing: true)
+        object["isPassing"] = false
+        let data = try JSONSerialization.data(withJSONObject: object)
+        #expect(throws: DecodingError.self) { try JSONDecoder().decode(SUT.Expectation.self, from: data) }
+    }
+}

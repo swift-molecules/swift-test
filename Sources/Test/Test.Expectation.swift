@@ -52,3 +52,28 @@ extension Test.Expectation: CustomStringConvertible {
         return "✗ \(expression.sourceCode): \(failure.message)"
     }
 }
+
+extension Test.Expectation {
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let isPassing = try container.decode(Bool.self, forKey: .isPassing)
+        let failure = try container.decodeIfPresent(Failure.self, forKey: .failure)
+        guard isPassing == (failure == nil) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: isPassing
+                        ? "Passing expectation must not have a failure"
+                        : "Failing expectation must have a failure reason"
+                )
+            )
+        }
+        self.init(
+            id: try container.decode(ID.self, forKey: .id),
+            expression: try container.decode(Test.Expression.self, forKey: .expression),
+            isPassing: isPassing,
+            failure: failure
+        )
+    }
+}
