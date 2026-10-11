@@ -46,50 +46,52 @@ extension Test.Snapshot {
             self.syncSnapshot = syncSnapshot
             self.snapshot = asyncSnapshot
         }
+    }
+}
 
-        public func pullback<NewValue>(
-            _ transform: @escaping (_ otherValue: NewValue) -> Value
-        ) -> Test.Snapshot.Strategy<NewValue, Format> {
-            let capturedSnapshot = self.snapshot
-            let capturedSyncSnapshot = self.syncSnapshot
+extension Test.Snapshot.Strategy {
+    public func pullback<NewValue>(
+        _ transform: @escaping (_ otherValue: NewValue) -> Value
+    ) -> Test.Snapshot.Strategy<NewValue, Format> {
+        let capturedSnapshot = self.snapshot
+        let capturedSyncSnapshot = self.syncSnapshot
 
-            var newSyncSnapshot: ((NewValue) -> Format)?
-            if let sync = capturedSyncSnapshot {
-                newSyncSnapshot = { newValue in sync(transform(newValue)) }
+        var newSyncSnapshot: ((NewValue) -> Format)?
+        if let sync = capturedSyncSnapshot {
+            newSyncSnapshot = { newValue in sync(transform(newValue)) }
+        }
+
+        return Test.Snapshot.Strategy<NewValue, Format>(
+            pathExtension: pathExtension,
+            diffing: diffing,
+            syncSnapshot: newSyncSnapshot,
+            asyncSnapshot: { newValue in
+                capturedSnapshot(transform(newValue))
             }
+        )
+    }
 
-            return Test.Snapshot.Strategy<NewValue, Format>(
-                pathExtension: pathExtension,
-                diffing: diffing,
-                syncSnapshot: newSyncSnapshot,
-                asyncSnapshot: { newValue in
-                    capturedSnapshot(transform(newValue))
+    public func asyncPullback<NewValue>(
+        _ transform: @escaping (_ otherValue: NewValue) -> Async.Callback<Value>
+    ) -> Test.Snapshot.Strategy<NewValue, Format> {
+        let capturedSnapshot = self.snapshot
+        return Test.Snapshot.Strategy<NewValue, Format>(
+            pathExtension: pathExtension,
+            diffing: diffing,
+            asyncSnapshot: { newValue in
+                Async.Callback {
+                    await capturedSnapshot(await transform(newValue)())()
                 }
-            )
-        }
+            }
+        )
+    }
 
-        public func asyncPullback<NewValue>(
-            _ transform: @escaping (_ otherValue: NewValue) -> Async.Callback<Value>
-        ) -> Test.Snapshot.Strategy<NewValue, Format> {
-            let capturedSnapshot = self.snapshot
-            return Test.Snapshot.Strategy<NewValue, Format>(
-                pathExtension: pathExtension,
-                diffing: diffing,
-                asyncSnapshot: { newValue in
-                    Async.Callback {
-                        await capturedSnapshot(await transform(newValue)())()
-                    }
-                }
-            )
-        }
+    public func capture(_ value: Value) async -> Format {
+        await snapshot(value)()
+    }
 
-        public func capture(_ value: Value) async -> Format {
-            await snapshot(value)()
-        }
-
-        public var isSynchronous: Bool {
-            syncSnapshot != nil
-        }
+    public var isSynchronous: Bool {
+        syncSnapshot != nil
     }
 }
 

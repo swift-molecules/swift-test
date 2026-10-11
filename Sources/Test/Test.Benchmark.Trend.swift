@@ -17,9 +17,9 @@ extension Test.Benchmark.Trend {
 
     public struct Interpretation: Sendable, Codable, Hashable, CustomStringConvertible {
 
-        public let rawValue: Swift.String
+        public let rawValue: Swift::String
 
-        public init(rawValue: Swift.String) {
+        public init(rawValue: Swift::String) {
             self.rawValue = rawValue
         }
     }
@@ -33,5 +33,5 @@ extension Test.Benchmark.Trend.Interpretation {
 
     public static let none = Self(rawValue: "none")
 
-    public var description: Swift.String { rawValue }
+    public var description: Swift::String { rawValue }
 }

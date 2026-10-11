@@ -1,4 +1,4 @@
-public import Async_Primitive
+import Async_Primitive
 import Async
 import Byte
 import Test

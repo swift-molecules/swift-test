@@ -25,7 +25,7 @@ extension Test.Snapshot.Strategy where Format == String {
             diffing: .lines,
             snapshot: { value in
                 var output = ""
-                Swift.dump(value, to: &output)
+                Swift::dump(value, to: &output)
                 return output
             }
         )

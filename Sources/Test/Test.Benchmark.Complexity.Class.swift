@@ -1,8 +1,8 @@
-public import Numeric
+import Numeric
 
 extension Test.Benchmark.Complexity {
 
-    public enum Class: Swift.String, Sendable, Hashable, Codable, CaseIterable, Comparable {
+    public enum Class: Swift::String, Sendable, Hashable, Codable, CaseIterable, Comparable {
 
         case constant
 

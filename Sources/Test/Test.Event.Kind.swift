@@ -2,10 +2,10 @@ public import Tagged
 
 extension Test.Event {
 
-    public typealias Kind = Tagged<Test.Event, Swift.String>
+    public typealias Kind = Tagged<Test.Event, Swift::String>
 }
 
-extension Tagged where Tag == Test.Event, Underlying == Swift.String {
+extension Tagged where Tag == Test.Event, Underlying == Swift::String {
 
     public static let runStarted: Self = "runStarted"
 

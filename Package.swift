@@ -90,19 +90,19 @@ let package = Package(
         ),
         .target(
             name: "Test Standard Library Integration",
-            dependencies: ["Test"]
+            dependencies: [.target(name: "Test")]
         ),
         .target(
             name: "Test Apple Foundation Integration",
             dependencies: [
-                "Test",
-                "Test Standard Library Integration",
+                .target(name: "Test"),
+                .target(name: "Test Standard Library Integration"),
             ]
         ),
         .testTarget(
             name: "Test Tests",
             dependencies: [
-                "Test",
+                .target(name: "Test"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Async", package: "swift-async"),
                 .product(name: "Sequence", package: "swift-sequence"),
@@ -115,8 +115,8 @@ let package = Package(
         .testTarget(
             name: "Test Standard Library Integration Tests",
             dependencies: [
-                "Test",
-                "Test Standard Library Integration",
+                .target(name: "Test"),
+                .target(name: "Test Standard Library Integration"),
             ]
         ),
     ],
@@ -124,20 +124,14 @@ let package = Package(
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+    target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
         .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableExperimentalFeature("LifetimeDependence"),
-        .enableExperimentalFeature("Lifetimes"),
-        .enableExperimentalFeature("SuppressedAssociatedTypes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableUpcomingFeature("LifetimeDependence"),
+        .enableExperimentalFeature("Lifetimes"),
+        .treatAllWarnings(as: .error),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }

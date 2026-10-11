@@ -1,4 +1,4 @@
-public import Byte
+import Byte
 import Sequence
 
 extension Test.Snapshot.Diffing where Format == String {

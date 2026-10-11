@@ -79,7 +79,7 @@ extension Test.Benchmark.Measurement {
 }
 
 extension Test.Benchmark.Measurement: Codable {
-    private enum CodingKeys: Swift.String, CodingKey {
+    private enum CodingKeys: Swift::String, CodingKey {
         case durations
     }
 

@@ -1,16 +1,16 @@
 extension Test.Benchmark {
 
-    public enum Error: Swift.Error, Sendable, CustomStringConvertible {
+    public enum Error: Swift::Error, Sendable, CustomStringConvertible {
 
         case thresholdExceeded(
-            test: Swift.String,
+            test: Swift::String,
             metric: Metric,
             expected: Duration,
             actual: Duration
         )
 
         case regressionDetected(
-            test: Swift.String,
+            test: Swift::String,
             metric: Metric,
             baseline: Duration,
             current: Duration,
@@ -22,7 +22,7 @@ extension Test.Benchmark {
 
 extension Test.Benchmark.Error {
 
-    public var description: Swift.String {
+    public var description: Swift::String {
         switch self {
         case .thresholdExceeded(let test, let metric, let expected, let actual):
             return """
