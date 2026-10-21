@@ -1,6 +1,6 @@
-import Tagged
-import Source
 import Foundation
+import Source
+import Tagged
 import Test
 import Testing
 

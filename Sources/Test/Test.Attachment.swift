@@ -1,5 +1,5 @@
-public import Carrier
 public import Byte
+public import Carrier
 
 extension Test {
 

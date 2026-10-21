@@ -1,9 +1,9 @@
-import Text
-import Tagged
-import Source
 import Foundation
+import Source
+import Tagged
 import Test
 import Testing
+import Text
 
 @Suite
 struct `Source.Location` {

@@ -1,5 +1,5 @@
-import Async_Primitive
 import Async
+import Async_Primitive
 import Byte
 import Test
 import Testing

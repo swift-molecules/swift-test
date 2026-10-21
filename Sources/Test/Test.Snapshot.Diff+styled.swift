@@ -1,5 +1,6 @@
-import Sequence
 public import Cardinal
+import Sequence
+
 extension Test.Snapshot.Diff {
 
     public static func styled(

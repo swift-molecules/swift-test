@@ -1,6 +1,7 @@
-import Source_Standard_Library_Integration
 public import Sample
 public import Source
+import Source_Standard_Library_Integration
+
 extension Test {
 
     public struct Trait: Sendable, Hashable, Codable {
