@@ -66,10 +66,6 @@ let package = Package(
             name: "Test",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
-                .product(
-                    name: "Tagged",
-                    package: "swift-tagged"
-                ),
                 .product(name: "Source", package: "swift-source"),
                 .product(name: "Source Standard Library Integration", package: "swift-source"),
                 .product(name: "Sample", package: "swift-sample"),
@@ -81,10 +77,6 @@ let package = Package(
                 ),
                 .product(name: "Witness", package: "swift-witness"),
                 .product(name: "Byte", package: "swift-byte"),
-                .product(
-                    name: "Byte",
-                    package: "swift-byte"
-                ),
                 .product(name: "Carrier", package: "swift-carrier"),
             ]
         ),
