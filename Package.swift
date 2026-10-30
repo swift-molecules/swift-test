@@ -23,9 +23,20 @@ let package = Package(
         .library(
             name: "Test Apple Foundation Integration",
             targets: ["Test Apple Foundation Integration"]
+        ),        .library(
+            name: "Test Benchmark",
+            targets: ["Test Benchmark"]
         ),
     ],
     dependencies: [
+        .package(
+            url: "https://github.com/swift-molecules/swift-benchmark.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-cardinal.git",
+            branch: "main"
+        ),
         .package(
             url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
@@ -109,6 +120,14 @@ let package = Package(
             dependencies: [
                 .target(name: "Test"),
                 .target(name: "Test Standard Library Integration"),
+            ]
+        ),        .target(
+            name: "Test Benchmark",
+            dependencies: [
+                .target(name: "Test"),
+                .product(name: "Benchmark", package: "swift-benchmark"),
+                .product(name: "Source", package: "swift-source"),
+                .product(name: "Cardinal", package: "swift-cardinal"),
             ]
         ),
     ],
