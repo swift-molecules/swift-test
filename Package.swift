@@ -23,7 +23,8 @@ let package = Package(
         .library(
             name: "Test Apple Foundation Integration",
             targets: ["Test Apple Foundation Integration"]
-        ),        .library(
+        ),
+        .library(
             name: "Test Benchmark",
             targets: ["Test Benchmark"]
         ),
@@ -121,7 +122,8 @@ let package = Package(
                 .target(name: "Test"),
                 .target(name: "Test Standard Library Integration"),
             ]
-        ),        .target(
+        ),
+        .target(
             name: "Test Benchmark",
             dependencies: [
                 .target(name: "Test"),
