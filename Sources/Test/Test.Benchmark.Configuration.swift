@@ -1,6 +1,6 @@
 extension Test.Benchmark {
 
-    public struct Configuration: Sendable, Hashable, Codable {
+    public struct Configuration: Sendable, Hashable {
 
         public var iteration: Iteration
 
@@ -15,3 +15,7 @@ extension Test.Benchmark {
         }
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Configuration: Codable {}
+#endif

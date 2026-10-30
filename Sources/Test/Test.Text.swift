@@ -1,6 +1,6 @@
 extension Test {
 
-    public struct Text: Sendable, Hashable, Codable {
+    public struct Text: Sendable, Hashable {
 
         public let segments: [Segment]
 
@@ -64,3 +64,7 @@ extension Test.Text {
         lhs = lhs + rhs
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Text: Codable {}
+#endif

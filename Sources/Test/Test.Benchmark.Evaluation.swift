@@ -1,7 +1,7 @@
 public import Sample
 extension Test.Benchmark {
 
-    public struct Evaluation: Sendable, Hashable, Codable {
+    public struct Evaluation: Sendable, Hashable {
 
         public var threshold: Duration?
 
@@ -28,3 +28,7 @@ extension Test.Benchmark {
         }
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Evaluation: Codable {}
+#endif

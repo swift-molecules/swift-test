@@ -1,6 +1,6 @@
 extension Test.Expectation {
 
-    public struct Failure: Sendable, Hashable, Codable {
+    public struct Failure: Sendable, Hashable {
 
         public let message: Test.Text
 
@@ -44,3 +44,7 @@ extension Test.Expectation.Failure: CustomStringConvertible {
         return result
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Expectation.Failure: Codable {}
+#endif

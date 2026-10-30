@@ -3,7 +3,7 @@ public import Tagged
 
 extension Test {
 
-    public struct Expression: Sendable, Hashable, Codable {
+    public struct Expression: Sendable, Hashable {
 
         public let id: ID
 
@@ -38,3 +38,7 @@ extension Test.Expression: CustomStringConvertible {
         sourceCode
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Expression: Codable {}
+#endif

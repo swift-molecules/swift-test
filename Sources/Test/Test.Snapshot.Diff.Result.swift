@@ -1,6 +1,6 @@
 extension Test.Snapshot.Diff {
 
-    public struct Result: Sendable, Hashable, Codable {
+    public struct Result: Sendable, Hashable {
 
         public let summary: String
 
@@ -29,3 +29,7 @@ extension Test.Snapshot.Diff.Result: CustomStringConvertible {
         return summary
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Snapshot.Diff.Result: Codable {}
+#endif

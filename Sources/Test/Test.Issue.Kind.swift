@@ -1,7 +1,7 @@
 public import Tagged
 extension Test.Issue {
 
-    public enum Kind: Sendable, Hashable, Codable {
+    public enum Kind: Sendable, Hashable {
 
         case unconditional(Test.Text)
 
@@ -51,3 +51,7 @@ extension Test.Issue.Kind: CustomStringConvertible {
         }
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Issue.Kind: Codable {}
+#endif

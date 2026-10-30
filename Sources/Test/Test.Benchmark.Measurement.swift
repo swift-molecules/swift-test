@@ -78,23 +78,25 @@ extension Test.Benchmark.Measurement {
     }
 }
 
-extension Test.Benchmark.Measurement: Codable {
-    private enum CodingKeys: Swift::String, CodingKey {
-        case durations
-    }
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Measurement: Codable {
+        private enum CodingKeys: Swift::String, CodingKey {
+            case durations
+        }
 
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(durations, forKey: .durations)
-    }
+        public func encode(to encoder: any Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(durations, forKey: .durations)
+        }
 
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let durations = try container.decode([Duration].self, forKey: .durations)
-        self.durations = durations
-        self.batch = Sample.Batch(durations)
+        public init(from decoder: any Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let durations = try container.decode([Duration].self, forKey: .durations)
+            self.durations = durations
+            self.batch = Sample.Batch(durations)
+        }
     }
-}
+#endif
 
 extension Test.Benchmark.Measurement: Comparable {
 

@@ -1,6 +1,6 @@
 extension Test.Snapshot.Diff.Result {
 
-    public enum Operation: Sendable, Hashable, Codable {
+    public enum Operation: Sendable, Hashable {
 
         case added(path: Swift::String, value: Swift::String)
 
@@ -9,3 +9,7 @@ extension Test.Snapshot.Diff.Result {
         case modified(path: Swift::String, old: Swift::String, new: Swift::String)
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Snapshot.Diff.Result.Operation: Codable {}
+#endif

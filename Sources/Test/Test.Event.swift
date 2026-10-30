@@ -1,7 +1,7 @@
 public import Tagged
 extension Test {
 
-    public struct Event: Sendable, Codable {
+    public struct Event: Sendable {
 
         public let id: Test.ID?
 
@@ -95,3 +95,7 @@ extension Test.Event: CustomStringConvertible {
         return "Event(\(parts.joined(separator: ", ")))"
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Event: Codable {}
+#endif

@@ -1,6 +1,6 @@
 extension Test.Text {
 
-    public struct Segment: Sendable, Hashable, Codable {
+    public struct Segment: Sendable, Hashable {
 
         public let content: String
 
@@ -15,7 +15,7 @@ extension Test.Text {
 
 extension Test.Text.Segment {
 
-    public enum Style: String, Sendable, Hashable, Codable, CaseIterable {
+    public enum Style: String, Sendable, Hashable, CaseIterable {
 
         case plain
 
@@ -58,3 +58,11 @@ extension Test.Text.Segment: ExpressibleByStringLiteral {
         self.init(value, style: .plain)
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Text.Segment: Codable {}
+#endif
+
+#if !hasFeature(Embedded)
+    extension Test.Text.Segment.Style: Codable {}
+#endif

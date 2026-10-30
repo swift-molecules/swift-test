@@ -1,6 +1,6 @@
 extension Test.Benchmark {
 
-    public struct Iteration: Sendable, Hashable, Codable {
+    public struct Iteration: Sendable, Hashable {
 
         public var count: Int
 
@@ -15,3 +15,7 @@ extension Test.Benchmark {
         }
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Iteration: Codable {}
+#endif

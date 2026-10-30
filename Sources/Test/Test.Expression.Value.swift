@@ -1,6 +1,6 @@
 extension Test.Expression {
 
-    public struct Value: Sendable, Hashable, Codable {
+    public struct Value: Sendable, Hashable {
 
         public let label: String?
 
@@ -53,3 +53,7 @@ extension Test.Expression.Value: CustomStringConvertible {
         return "\(label) = \(stringValue)"
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Expression.Value: Codable {}
+#endif

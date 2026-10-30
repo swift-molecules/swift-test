@@ -1,6 +1,6 @@
 extension Test.Event {
 
-    public enum Result: Sendable, Hashable, Codable {
+    public enum Result: Sendable, Hashable {
 
         case passed
 
@@ -9,3 +9,7 @@ extension Test.Event {
         case skipped
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Event.Result: Codable {}
+#endif

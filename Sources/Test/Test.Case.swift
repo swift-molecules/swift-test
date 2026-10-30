@@ -1,7 +1,7 @@
 public import Tagged
 extension Test {
 
-    public struct Case: Sendable, Hashable, Codable {
+    public struct Case: Sendable, Hashable {
 
         public let id: ID
 
@@ -25,3 +25,7 @@ extension Test.Case: CustomStringConvertible {
         "Case(\(arguments))"
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Case: Codable {}
+#endif

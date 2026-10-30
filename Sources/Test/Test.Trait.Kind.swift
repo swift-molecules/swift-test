@@ -1,6 +1,6 @@
 extension Test.Trait {
 
-    public enum Kind: Sendable, Hashable, Codable {
+    public enum Kind: Sendable, Hashable {
 
         case timeLimit(Duration)
 
@@ -52,3 +52,7 @@ extension Test.Trait.Kind: CustomStringConvertible {
         }
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Trait.Kind: Codable {}
+#endif

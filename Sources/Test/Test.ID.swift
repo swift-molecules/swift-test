@@ -1,7 +1,7 @@
 public import Source
 extension Test {
 
-    public struct ID: Sendable, Hashable, Codable {
+    public struct ID: Sendable, Hashable {
 
         public let module: String
 
@@ -57,3 +57,7 @@ extension Test.ID: CustomStringConvertible {
         fullyQualifiedName
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.ID: Codable {}
+#endif

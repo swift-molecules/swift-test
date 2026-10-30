@@ -4,7 +4,7 @@ import Source_Standard_Library_Integration
 
 extension Test {
 
-    public struct Trait: Sendable, Hashable, Codable {
+    public struct Trait: Sendable, Hashable {
 
         public let kind: Kind
 
@@ -84,3 +84,7 @@ extension Test.Trait: CustomStringConvertible {
         kind.description
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Trait: Codable {}
+#endif

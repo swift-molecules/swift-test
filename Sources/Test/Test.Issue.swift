@@ -1,7 +1,7 @@
 public import Source
 extension Test {
 
-    public struct Issue: Sendable, Hashable, Codable {
+    public struct Issue: Sendable, Hashable {
 
         public let kind: Kind
 
@@ -45,3 +45,7 @@ extension Test.Issue: CustomStringConvertible {
         return result
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Issue: Codable {}
+#endif

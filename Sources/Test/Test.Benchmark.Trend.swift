@@ -15,7 +15,7 @@ extension Test.Benchmark {
 
 extension Test.Benchmark.Trend {
 
-    public struct Interpretation: Sendable, Codable, Hashable, CustomStringConvertible {
+    public struct Interpretation: Sendable, Hashable, CustomStringConvertible {
 
         public let rawValue: Swift::String
 
@@ -35,3 +35,7 @@ extension Test.Benchmark.Trend.Interpretation {
 
     public var description: Swift::String { rawValue }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Trend.Interpretation: Codable {}
+#endif

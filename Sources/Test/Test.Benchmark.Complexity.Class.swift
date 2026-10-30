@@ -2,7 +2,7 @@ import Numeric
 
 extension Test.Benchmark.Complexity {
 
-    public enum Class: Swift::String, Sendable, Hashable, Codable, CaseIterable, Comparable {
+    public enum Class: Swift::String, Sendable, Hashable, CaseIterable, Comparable {
 
         case constant
 
@@ -67,3 +67,7 @@ extension Test.Benchmark.Complexity.Class {
         lhs.order < rhs.order
     }
 }
+
+#if !hasFeature(Embedded)
+    extension Test.Benchmark.Complexity.Class: Codable {}
+#endif
