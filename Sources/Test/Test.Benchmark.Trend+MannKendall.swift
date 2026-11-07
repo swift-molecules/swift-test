@@ -11,7 +11,7 @@ extension Test.Benchmark.Trend {
         let averaging = Sample.Averaging<Duration>.duration
 
         var s: Int = 0
-        for i in 0..<(n - 1) {
+        (0..<(n - 1)).forEach { i in
             let xi = averaging.project(durations[i])
             for j in (i + 1)..<n {
                 let xj = averaging.project(durations[j])
