@@ -284,4 +284,42 @@ extension `Test Benchmark Complexity Tests`.`Edge Case` {
         #expect(evidence.points.isEmpty)
         #expect(evidence.metricCV == .infinity)
     }
+
+    @Test
+    func `a single distinct size returns degenerate evidence`() {
+        let points: [(size: Int, metric: Duration)] = [
+            (size: 100, metric: Duration.milliseconds(1)),
+            (size: 100, metric: Duration.milliseconds(2)),
+        ]
+
+        let evidence = SUT.Benchmark.Complexity.evidence(
+            from: points,
+            classes: [.linear, .quadratic]
+        )
+
+        #expect(evidence.candidates.isEmpty)
+        #expect(evidence.exponent.value == 0)
+        #expect(evidence.points.count == 2)
+    }
+
+    @Test
+    func `the constant class fits the horizontal line through the mean`() throws {
+        let points: [(size: Int, metric: Duration)] = [
+            (size: 100, metric: Duration.seconds(1)),
+            (size: 1_000, metric: Duration.seconds(2)),
+            (size: 10_000, metric: Duration.seconds(3)),
+        ]
+
+        let evidence = SUT.Benchmark.Complexity.evidence(
+            from: points,
+            classes: [.constant]
+        )
+
+        let candidate = try #require(evidence.candidates.first)
+        #expect(candidate.regression.slope == 0)
+        #expect(abs(candidate.regression.intercept - 2) < 0.000_001)
+        #expect(candidate.regression.rSquared == 0)
+        #expect(candidate.regression.meanSquaredError.isFinite)
+        #expect(candidate.effectiveExponent == 0)
+    }
 }

@@ -14,7 +14,14 @@ extension Test.Benchmark.Complexity {
 
         let valid = data.filter { $0.size > 0 && $0.seconds > 0 }
 
-        guard valid.count >= 2 else {
+        let logX = valid.map { Double.math.log2(Double($0.size)) }
+        let logY = valid.map { Double.math.log2($0.seconds) }
+
+        guard
+            let logLogFit = try? Sample.Regression.linear(
+                Array(zip(logX, logY).map { (x: $0, y: $1) })
+            )
+        else {
             let emptyFit = Sample.Regression.Fit(
                 slope: 0,
                 intercept: 0,
@@ -31,9 +38,6 @@ extension Test.Benchmark.Complexity {
             )
         }
 
-        let logX = valid.map { Double.math.log2(Double($0.size)) }
-        let logY = valid.map { Double.math.log2($0.seconds) }
-        let logLogFit = Sample.Regression.linear(x: logX, y: logY)
         let exponent = Exponent(
             value: logLogFit.slope,
             coefficient: Double.math.exp2(logLogFit.intercept),
@@ -44,7 +48,7 @@ extension Test.Benchmark.Complexity {
         var candidates: [Candidate.Fit] = []
         for cls in classes {
             let transformed = valid.map { cls.transform(Double($0.size)) }
-            let fit = Sample.Regression.linear(x: transformed, y: seconds)
+            let fit = Self.fit(x: transformed, y: seconds)
 
             var logSizesForExp: [Double] = []
             var logTransformsForExp: [Double] = []
@@ -57,11 +61,7 @@ extension Test.Benchmark.Complexity {
             }
             let effectiveExp: Double
             if logTransformsForExp.count >= 2 {
-                effectiveExp =
-                    Sample.Regression.linear(
-                        x: logSizesForExp,
-                        y: logTransformsForExp
-                    ).slope
+                effectiveExp = Self.fit(x: logSizesForExp, y: logTransformsForExp).slope
             } else {
                 effectiveExp = cls.theoreticalExponent ?? 0
             }
@@ -107,5 +107,26 @@ extension Test.Benchmark.Complexity {
             points: valid.map { (size: $0.size, metric: Duration.seconds($0.seconds)) },
             metricCV: metricCV
         )
+    }
+
+    /// The least-squares fit of `y` on `x`, for at least two points.
+    ///
+    /// When every `x` is equal, as for the constant class, `y` does not
+    /// depend on `x`, and the best fit is the horizontal line through the
+    /// mean of `y`, which explains none of its variance.
+    private static func fit(x: [Double], y: [Double]) -> Sample.Regression.Fit {
+        do {
+            return try Sample.Regression.linear(Array(zip(x, y).map { (x: $0, y: $1) }))
+        } catch {
+            let n = Double(y.count)
+            let mean = y.reduce(0, +) / n
+            let sumOfSquares = y.reduce(0.0) { $0 + ($1 - mean) * ($1 - mean) }
+            return Sample.Regression.Fit(
+                slope: 0,
+                intercept: mean,
+                rSquared: 0,
+                meanSquaredError: sumOfSquares / (n - 1)
+            )
+        }
     }
 }
